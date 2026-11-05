@@ -31,6 +31,8 @@ The version to verify (e.g. `v0.1`), and optionally a list of bug IDs to re-veri
    - No dependency was added beyond the approved plan, and the lockfiles are committed.
    - No edits were made to applied migrations.
 7. **Security check:**
+   - Verify every `SR-` requirement in REQUIREMENTS.md that this version touches, with a test or a search as evidence, like any other requirement.
+   - Run `python .claude/hooks/guard_secrets.py --self-test`.
    - Search the repo and test artifacts for token or key patterns.
    - Confirm secrets never appear in UI data, logs or fixtures.
    - If the repo is public, check that fixtures hold no real usernames, ids or URLs.

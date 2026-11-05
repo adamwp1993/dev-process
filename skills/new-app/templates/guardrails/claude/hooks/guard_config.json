@@ -1,0 +1,36 @@
+{
+  "_about": "Patterns for guard_secrets.py (dev-process template). /new-app fills in owner, secret_store_suffix and project_patterns. Copied to .claude/hooks/ next to the script; only the owner edits it afterwards.",
+  "owner": "{{OWNER}}",
+  "secret_store_suffix": "secret_store.py",
+  "fake_marker": "(?i)FAKE|REDACTED|EXAMPLE",
+  "secret_values": [
+    ["sk-ant-[A-Za-z0-9_\\-]{20,}", "an Anthropic API key"],
+    ["\\bsk-(?:proj-)?[A-Za-z0-9_\\-]{20,}", "an OpenAI API key"],
+    ["\\bgh[pousr]_[A-Za-z0-9]{30,}", "a GitHub token"],
+    ["\\bgithub_pat_[A-Za-z0-9_]{30,}", "a GitHub token"],
+    ["\\bAKIA[0-9A-Z]{16}\\b", "an AWS access key"],
+    ["\\bxox[abprs]-[A-Za-z0-9-]{10,}", "a Slack token"],
+    ["-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----", "a private key"],
+    ["(?i)\\bbearer\\s+[A-Za-z0-9_\\-.]{20,}", "a Bearer token"]
+  ],
+  "project_patterns": [],
+  "shell_credential_access": [
+    ["(?i)keyring\\.(get_password|get_credential)", "reads a keyring secret"],
+    ["(?i)\\bkeyring\\s+get\\b", "uses the keyring CLI to read a secret"],
+    ["(?i)\\bcmdkey\\b", "queries Windows Credential Manager"],
+    ["(?i)\\bvaultcmd\\b", "queries the Windows Vault"],
+    ["(?i)Get-StoredCredential|CredRead|PasswordVault", "calls a credential-store API"],
+    ["\\bsecurity\\s+find-(generic|internet)-password\\b", "reads the macOS keychain"],
+    ["\\bsecret-tool\\s+lookup\\b", "reads the Secret Service keyring"],
+    ["(?i)(echo|printenv|print|Write-Output|\\$env:)\\W*\\w*(API_?KEY|TOKEN|SECRET|PASSWORD)", "prints a secret from the environment"]
+  ],
+  "secret_store_code": "\\bimport\\s+keyring\\b|\\bfrom\\s+keyring\\b|keyring\\.(get_password|set_password|delete_password|get_credential)",
+  "self_test": [
+    {"tool": "Bash", "input": {"command": "pytest -q"}, "block": false},
+    {"tool": "Bash", "input": {"command": "python -c \"import keyring; print(keyring.get_password('x','y'))\""}, "block": true},
+    {"tool": "PowerShell", "input": {"command": "cmdkey /list"}, "block": true},
+    {"tool": "Bash", "input": {"command": "echo $ANTHROPIC_API_KEY"}, "block": true},
+    {"tool": "Write", "input": {"file_path": "src/app/secret_store.py", "content": "import keyring"}, "block": false},
+    {"tool": "Edit", "input": {"file_path": "src/app/sync.py", "old_string": "x", "new_string": "import keyring"}, "block": "if_secret_store"}
+  ]
+}

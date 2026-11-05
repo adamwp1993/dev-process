@@ -18,9 +18,22 @@
 - **FR-3.1** {{…}}
 
 ## {{N}}. Security
+<!-- From the /new-app security round. Keep the threat model short; every SR- line is testable and QA checks each one. -->
+### Threat model
+- **Worth protecting:** {{keys, accounts, the user's data, money spent through paid APIs}}
+- **Threats:** {{leaked repo, malicious dependency or download, hostile API/LLM/file input, other local programs}}
+- **Out of scope:** {{e.g. an attacker with full control of the user's PC}}
+
+### Requirements
 - **SR-1** Secrets are stored only in the OS credential store, through one module.
 - **SR-2** No secret appears in logs, files, test fixtures, UI data or the AI transcript.
 - **SR-3** Recorded HTTP fixtures are scrubbed when recorded, and anonymized if the repo is public.
+- **SR-4** Claude Code never reads or prints a credential; a PreToolUse hook blocks attempts, and steps that need one are run by the owner.
+- **SR-5** Live tests are opt-in, use a separate scoped test credential, and are limited in what they write.
+- **SR-6** Every untrusted input (external APIs, imported files, LLM output) is validated before use and rendered as escaped text.
+- **SR-7** All network calls go through one HTTP adapter; links the app opens are built by the app from an allowlist of hosts.
+- **SR-8** Dependencies are added only through an approved plan and locked; downloaded binaries are pinned and SHA-256 checked before use.
+<!-- Add the app-specific ones: sign-in flow and scopes, revocation, spend guardrails, local data protection, debug ports test-only. -->
 
 ## {{N+1}}. Your data and privacy
 - {{What leaves the machine, to whom, and when. Each feature that sends data has a line here.}}
