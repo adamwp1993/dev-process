@@ -38,3 +38,7 @@ Choose the **user** scope so it's available in every project.
 ## Changing the process
 
 Edit the skills and templates here, bump `version` in `.claude-plugin/plugin.json`, and commit. When something in a project shows the process should change (as the memory notes in WeakSquare did), change it here so the next app gets it too.
+
+## Licence
+
+MIT. See [LICENSE](LICENSE). Projects you start from these templates are yours to license however you like.

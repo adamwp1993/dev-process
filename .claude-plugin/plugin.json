@@ -1,6 +1,9 @@
 {
   "name": "dev-process",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Adam's versioned build process: /new-app turns an idea into requirements, architecture and a roadmap; /build-version runs plan, build, self-check, independent QA, fix loop, rc handoff and sign-off, one version at a time.",
-  "author": { "name": "Adam" }
+  "author": {
+    "name": "Adam"
+  },
+  "license": "MIT"
 }
