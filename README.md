@@ -23,7 +23,7 @@ claude plugin install dev-process@dev-process
 Once it's on GitHub:
 
 ```
-/plugin install dev-process --marketplace <github-user>/dev-process
+/plugin install dev-process --marketplace adamwp1993/dev-process
 ```
 
 Choose the **user** scope so it's available in every project.
