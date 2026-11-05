@@ -1,0 +1,5 @@
+{
+  "name": "dev-process",
+  "owner": { "name": "Adam" },
+  "plugins": [{ "name": "dev-process", "source": "./" }]
+}

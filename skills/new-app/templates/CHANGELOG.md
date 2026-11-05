@@ -1,0 +1,14 @@
+# Changelog
+
+Notable changes to {{APP_NAME}}, newest first. The format follows [Keep a Changelog 1.1.0](https://keepachangelog.com/en/1.1.0/). Version numbers are the ROADMAP.md checkpoints (v0.1 … v1.0), not semantic versioning.
+
+## How entries are written
+- **Same commit as the change.** When a commit changes what the app does, the builder adds a line under `[Unreleased]` in that commit.
+- **Written for the person using the app:** what you can now do, or what behaves differently. Don't describe the code. Put requirement IDs at the end in brackets, e.g. `[FR-3.2]`.
+- **Groups:** Added, Changed, Deprecated, Removed, Fixed, Security. Leave out empty groups.
+- **Fixed** is for bugs in a version {{OWNER}} already signed off. Bugs found and fixed inside the version being built live in `qa/` reports, not here.
+- **Handoff (step 6):** add a `Candidates:` line under `[Unreleased]` listing the rc tag and date. Add each new rc to that line.
+- **Sign-off (step 9):** rename `[Unreleased]` to `[v0.x] - YYYY-MM-DD`, keep the Candidates line, and start a new empty `[Unreleased]` above it.
+- `python scripts/check_docs.py` checks this structure and that every requirement ID cited here exists.
+
+## [Unreleased]
